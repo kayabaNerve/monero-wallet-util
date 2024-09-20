@@ -43,4 +43,10 @@ runs:
 
     - name: Monero Regtest Daemon
       shell: bash
-      run: PATH=$PATH:/usr/bin ./orchestration/dev/networks/monero/run.sh --detach
+      run: |
+        PATH=$PATH:/usr/bin monerod \
+          --regtest --offline --fixed-difficulty=1 \
+          --no-zmq --rpc-bind-ip=0.0.0.0 --rpc-bind-port=18081 --confirm-external-bind \
+          --rpc-access-control-origins "*" --disable-rpc-ban \
+          --rpc-login=serai:seraidex --log-level 2 \
+          --non-interactive --detach
