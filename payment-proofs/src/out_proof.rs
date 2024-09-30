@@ -5,7 +5,11 @@ use zeroize::{Zeroize, Zeroizing};
 use rand_core::{RngCore, CryptoRng};
 
 use sha3::{Digest, Keccak256};
-use curve25519_dalek::{constants::ED25519_BASEPOINT_POINT, scalar::Scalar, edwards::EdwardsPoint};
+use curve25519_dalek::{
+  constants::{ED25519_BASEPOINT_POINT, ED25519_BASEPOINT_TABLE},
+  scalar::Scalar,
+  edwards::EdwardsPoint,
+};
 
 use monero_wallet::{
   transaction::Transaction,
@@ -147,6 +151,14 @@ impl OutProof {
           if actual_view_tag != shared_key_derivations.view_tag {
             None?;
           }
+        }
+
+        // Check the output's key
+        if output.key !=
+          (address.spend() + (&shared_key_derivations.shared_key * ED25519_BASEPOINT_TABLE))
+            .compress()
+        {
+          None?;
         }
 
         // Check the payment ID, if one was expected

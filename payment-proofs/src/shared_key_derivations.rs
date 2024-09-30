@@ -19,7 +19,7 @@ pub(crate) struct SharedKeyDerivations {
   // Hs("view_tag" || 8Ra || o)
   pub(crate) view_tag: u8,
   // Hs(uniqueness || 8Ra || o) where uniqueness may be empty
-  shared_key: Scalar,
+  pub(crate) shared_key: Scalar,
 }
 
 impl SharedKeyDerivations {
