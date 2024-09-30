@@ -211,10 +211,16 @@ impl OutProof {
           None?;
         }
         let ecdh = base58::decode(proofs.get(.. ecdh_len)?)?;
-        proofs = &proofs[ecdh_len ..];
+        #[allow(clippy::string_slice)] // Safe via immediately prior `get`
+        {
+          proofs = &proofs[ecdh_len ..];
+        }
 
         let signature = base58::decode(proofs.get(.. signature_len)?)?;
-        proofs = &proofs[signature_len ..];
+        #[allow(clippy::string_slice)] // Safe via immediately prior `get`
+        {
+          proofs = &proofs[signature_len ..];
+        }
 
         res.push(OutProof {
           ecdh: monero_wallet::io::read_point(&mut ecdh.as_slice()).ok()?,
