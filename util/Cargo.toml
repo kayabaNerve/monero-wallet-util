@@ -28,6 +28,8 @@ monero-wallet = { git = "https://github.com/serai-dex/serai", default-features =
 monero-seed = { path = "../seed", default-features = false }
 polyseed = { path = "../polyseed", default-features = false }
 
+monero-payment-proofs = { path = "../payment-proofs", default-features = false }
+
 [dev-dependencies]
 hex = { version = "0.4", default-features = false, features = ["std"] }
 curve25519-dalek = { version = "4", default-features = false, features = ["alloc", "zeroize"] }
@@ -45,6 +47,8 @@ std = [
 
   "monero-seed/std",
   "polyseed/std",
+
+  "monero-payment-proofs/std",
 ]
 compile-time-generators = ["monero-wallet/compile-time-generators"]
 multisig = ["monero-wallet/multisig", "std"]

@@ -3,6 +3,7 @@ resolver = "2"
 members = [
   "seed",
   "polyseed",
+  "payment-proofs",
   "util",
 
   "tests/no-std",

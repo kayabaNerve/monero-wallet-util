@@ -650,6 +650,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "monero-payment-proofs"
+version = "0.1.0"
+dependencies = [
+ "curve25519-dalek",
+ "monero-wallet",
+ "rand_core",
+ "sha3",
+ "std-shims",
+ "thiserror",
+ "zeroize",
+]
+
+[[package]]
 name = "monero-primitives"
 version = "0.1.0"
 source = "git+https://github.com/serai-dex/serai#669b2fef725d68c4bc7b748224f5408daca4ce18"
@@ -739,6 +752,7 @@ version = "0.1.0"
 dependencies = [
  "curve25519-dalek",
  "hex",
+ "monero-payment-proofs",
  "monero-seed",
  "monero-wallet",
  "polyseed",

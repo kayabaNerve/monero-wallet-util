@@ -1,0 +1,44 @@
+[package]
+name = "monero-payment-proofs"
+version = "0.1.0"
+description = "Payment proofs for the Monero protocol"
+license = "MIT"
+repository = "https://github.com/kayabaNerve/monero-wallet-util/tree/develop/payment-proofs"
+authors = ["Luke Parker <lukeparker5132@gmail.com>"]
+edition = "2021"
+rust-version = "1.80"
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+[lints]
+workspace = true
+
+[dependencies]
+std-shims = { git = "https://github.com/serai-dex/serai", version = "^0.1.1", default-features = false }
+
+thiserror = { version = "1", default-features = false, optional = true }
+
+zeroize = { version = "^1.5", default-features = false, features = ["zeroize_derive"] }
+rand_core = { version = "0.6", default-features = false }
+
+sha3 = { version = "0.10", default-features = false }
+curve25519-dalek = { version = "4", default-features = false, features = ["alloc", "zeroize"] }
+
+monero-wallet = { git = "https://github.com/serai-dex/serai", default-features = false }
+
+[features]
+std = [
+  "std-shims/std",
+
+  "thiserror",
+
+  "zeroize/std",
+  "rand_core/std",
+
+  "sha3/std",
+
+  "monero-wallet/std",
+]
+default = ["std"]

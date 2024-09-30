@@ -3,9 +3,7 @@
 #![deny(missing_docs)]
 #![cfg_attr(not(feature = "std"), no_std)]
 
-pub use monero_wallet::*;
-
-/// Seed creation and parsing functionality.
-pub mod seed;
-/// Payment proofs.
-pub use monero_payment_proofs::*;
+mod base58;
+mod shared_key_derivations;
+mod out_proof;
+pub use out_proof::OutProof;
