@@ -12,11 +12,18 @@ const ENCODED_BLOCK_LEN: usize = 11;
 // The maximum possible length of an encoding of this many bytes
 //
 // This is used for determining padding/how many bytes an encoding actually uses
-pub(crate) fn encoded_len_for_bytes(bytes: usize) -> usize {
+pub(crate) fn encoded_len_for_bytes(mut bytes: usize) -> usize {
+  // Calculate the length for all whole blocks
+  let mut i = (bytes / BLOCK_LEN) * ENCODED_BLOCK_LEN;
+  // Calculate the length for the remaining partial block
+  bytes %= bytes BLOCK_LEN;
+
+  // The bits in this many bytes
   let bits = u64::try_from(bytes).expect("length exceeded 2**64") * 8;
+  // The max possible value for this many bits
   let mut max = if bits == 64 { u64::MAX } else { (1 << bits) - 1 };
 
-  let mut i = 0;
+  // Find the amount of base58 characters necessary to encode this maximum possible value
   while max != 0 {
     max /= ALPHABET_LEN;
     i += 1;
