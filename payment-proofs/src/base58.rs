@@ -16,7 +16,7 @@ pub(crate) fn encoded_len_for_bytes(mut bytes: usize) -> usize {
   // Calculate the length for all whole blocks
   let mut i = (bytes / BLOCK_LEN) * ENCODED_BLOCK_LEN;
   // Calculate the length for the remaining partial block
-  bytes %= bytes BLOCK_LEN;
+  bytes %= BLOCK_LEN;
 
   // The bits in this many bytes
   let bits = u64::try_from(bytes).expect("length exceeded 2**64") * 8;
