@@ -83,7 +83,7 @@ impl OutProof {
   ) -> Self {
     let nonce = Zeroizing::new(Scalar::random(rng));
     let commitment_generator =
-      if address.is_subaddress() { ED25519_BASEPOINT_POINT } else { address.spend() };
+      if address.is_subaddress() { address.spend() } else { ED25519_BASEPOINT_POINT };
     let commit = |value: &Zeroizing<Scalar>| {
       (commitment_generator * value.deref(), address.view() * value.deref())
     };
@@ -114,7 +114,7 @@ impl OutProof {
     message: &[u8],
   ) -> Option<u64> {
     let commitment_generator =
-      if address.is_subaddress() { ED25519_BASEPOINT_POINT } else { address.spend() };
+      if address.is_subaddress() { address.spend() } else { ED25519_BASEPOINT_POINT };
 
     let OutProof { ecdh, c, s } = self;
     let s_commitment_generator = commitment_generator * s;
