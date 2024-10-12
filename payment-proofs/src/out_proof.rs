@@ -131,8 +131,8 @@ impl OutProof {
       if c ==
         Self::challenge(
           address,
-          s_commitment_generator - (c * key),
-          s_commitment_view_key - (c * ecdh),
+          s_commitment_generator + (c * key),
+          s_commitment_view_key + (c * ecdh),
           key,
           ecdh,
           message,
