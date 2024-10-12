@@ -15,7 +15,8 @@ fn out_proof_serialization() {
 
   let ephemeral_key = Zeroizing::new(Scalar::random(&mut OsRng));
 
-  let proof = OutProof::prove(&mut OsRng, view_pair.legacy_address(Network::Mainnet), &ephemeral_key, &[]);
+  let proof =
+    OutProof::prove(&mut OsRng, view_pair.legacy_address(Network::Mainnet), &ephemeral_key, &[]);
 
   let mut proofs = vec![];
   for _ in 0 .. 5 {
