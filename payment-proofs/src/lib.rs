@@ -7,3 +7,6 @@ mod base58;
 mod shared_key_derivations;
 mod out_proof;
 pub use out_proof::OutProof;
+
+#[cfg(test)]
+mod tests;

@@ -195,8 +195,8 @@ impl OutProof {
     None
   }
 
-  /// Write a series of OutProofs to a single string.
-  pub fn write(proofs: &[Self]) -> String {
+  /// Serialize a series of OutProofs to a single string.
+  pub fn serialize(proofs: &[Self]) -> String {
     let mut res = String::with_capacity(10 + (proofs.len() * 96));
     res.push_str("OutProofV2");
     for proof in proofs {
