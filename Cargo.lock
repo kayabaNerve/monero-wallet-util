@@ -848,7 +848,7 @@ dependencies = [
  "hex",
  "pbkdf2",
  "rand_core",
- "sha3",
+ "sha2",
  "std-shims",
  "subtle",
  "thiserror",

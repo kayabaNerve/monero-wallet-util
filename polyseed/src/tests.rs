@@ -216,3 +216,11 @@ fn test_invalid_polyseed() {
   let res = Polyseed::from_string(Language::English, Zeroizing::new(seed));
   assert_eq!(res, Err(PolyseedError::UnsupportedFeatures));
 }
+
+#[test]
+fn test_key() {
+  let seed: String = "comic blanket chair inject end snow rural improve cereal better initial replace ribbon brother gather unaware".into();
+  let res = Polyseed::from_string(Language::English, Zeroizing::new(seed)).unwrap();
+  let key = res.key();
+  assert_eq!(*key, [216, 82, 37, 164, 252, 122, 170, 61, 52, 152, 131, 26, 181, 226, 191, 131, 204, 3, 242, 225, 229, 175, 37, 151, 18, 143, 53, 175, 136, 17, 47, 126]);
+}

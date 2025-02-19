@@ -12,7 +12,7 @@ use subtle::ConstantTimeEq;
 use zeroize::{Zeroize, Zeroizing, ZeroizeOnDrop};
 use rand_core::{RngCore, CryptoRng};
 
-use sha3::Sha3_256;
+use sha2::Sha256;
 use pbkdf2::pbkdf2_hmac;
 
 #[cfg(test)]
@@ -439,10 +439,17 @@ impl Polyseed {
 
   /// The key derived from this seed.
   pub fn key(&self) -> Zeroizing<[u8; 32]> {
-    let mut key = Zeroizing::new([0; 32]);
-    pbkdf2_hmac::<Sha3_256>(
+    let mut key = Zeroizing::new([0u8; 32]);
+    let mut salt = [0u8; 32];
+    salt[..12].copy_from_slice(POLYSEED_SALT);
+    salt[13] = 0xFF;
+    salt[14] = 0xFF;
+    salt[15] = 0xFF;
+    salt[20] = self.birthday.try_into().unwrap();
+    salt[24] = self.features;
+    pbkdf2_hmac::<Sha256>(
       self.entropy.as_slice(),
-      POLYSEED_SALT,
+      &salt,
       POLYSEED_KEYGEN_ITERATIONS,
       key.as_mut(),
     );
