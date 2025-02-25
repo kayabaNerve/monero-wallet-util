@@ -323,11 +323,8 @@ impl Seed {
     let entropy = seed_to_bytes(lang, &words)?;
 
     // Make sure this is a valid scalar
-    let scalar = Scalar::from_canonical_bytes(*entropy);
-    if scalar.is_none().into() {
-      Err(SeedError::InvalidSeed)?;
-    }
-    let mut scalar = scalar.unwrap();
+    let scalar = Scalar::from_bytes_mod_order(*entropy);
+    let mut scalar = scalar;
     scalar.zeroize();
 
     // Call from_entropy so a trimmed seed becomes a full seed
@@ -337,7 +334,7 @@ impl Seed {
   /// Create a seed from entropy.
   #[allow(clippy::needless_pass_by_value)]
   pub fn from_entropy(lang: Language, entropy: Zeroizing<[u8; 32]>) -> Option<Seed> {
-    Option::from(Scalar::from_canonical_bytes(*entropy))
+    Option::from(Scalar::from_bytes_mod_order(*entropy))
       .map(|scalar| key_to_seed(lang, Zeroizing::new(scalar)))
   }
 
