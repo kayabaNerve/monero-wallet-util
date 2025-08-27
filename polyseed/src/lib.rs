@@ -445,7 +445,7 @@ impl Polyseed {
     salt[13] = 0xFF;
     salt[14] = 0xFF;
     salt[15] = 0xFF;
-    salt[20] = self.birthday.try_into().unwrap();
+    salt[20 .. 24].copy_from_slice(&u32::from(self.birthday).to_le_bytes());
     salt[24] = self.features;
     pbkdf2_hmac::<Sha256>(
       self.entropy.as_slice(),
